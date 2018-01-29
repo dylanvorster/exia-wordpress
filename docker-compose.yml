@@ -1,0 +1,22 @@
+version: "2"
+services:
+  wordpress:
+    image: wordpress
+    environment:
+      - "WORDPRESS_DB_HOST=mysql:3306"
+      - "WORDPRESS_DB_USER=dylan"
+      - "WORDPRESS_DB_PASSWORD=dylan"
+      - "WORDPRESS_DB_NAME=WORDPRESS"
+    volumes:
+      - "./:/var/www/html/wp-content/themes/GUNDAM"
+    ports:
+      - 8080:80
+  mysql:
+    build:
+      dockerfile: Dockerfile-sql
+      context: ./
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_USER=dylan"
+      - "MYSQL_PASSWORD=dylan"
+      - "MYSQL_DATABASE=WORDPRESS"

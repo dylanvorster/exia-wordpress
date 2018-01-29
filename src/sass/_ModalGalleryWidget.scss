@@ -1,0 +1,43 @@
+.exia-modal-gallery {
+  position: fixed;
+  z-index: 4;
+  background: rgba(black, 0.85);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 50px;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: scale(1.1);
+
+  &--visible{
+    opacity: 1;
+    transform: scale(1.0);
+  }
+
+  &__close{
+    cursor: pointer;
+    position: absolute;
+    top: 70px;
+    right: 70px;
+    color: white;
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(1px 1px 1px rgb(0,0,0));
+  }
+
+  .image-gallery-image{
+    text-align: center;
+    img{
+      height: calc(100vh - 200px);
+      width: auto;
+    }
+  }
+
+  .image-gallery-slide{
+    background: transparent !important;
+  }
+
+}

@@ -1,0 +1,13 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "lib": ["es6", "dom"],
+    "allowJs": true,
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "sourceMap": true
+  },
+  "include": [
+    "./src"
+  ]
+}

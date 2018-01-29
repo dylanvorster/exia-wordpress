@@ -1,0 +1,45 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
+@font-face {
+  src: url('../fonts/visitor1.ttf');
+  font-family: 'visitor';
+}
+
+html, body, #application{
+  height: 100%;
+  min-height: 100%;
+  background: #121214;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #3c3f41;
+
+  &:hover{
+    background: aqua;
+  }
+}
+
+a{
+  text-decoration: none;
+}
+
+@import "PostWidget";
+@import "BodyWidget";
+@import "SidebarWidget";
+@import "CenterPageWidget";
+@import "TagWidget";
+@import "GalleryWidget";
+@import "ModalGalleryWidget";
+@import "../../node_modules/react-image-gallery/styles/scss/image-gallery.scss";

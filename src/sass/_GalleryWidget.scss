@@ -1,0 +1,22 @@
+.exia-gallery{
+  width: 100%;
+  padding-bottom: 40px;
+
+  &--light{
+    background: white;
+    margin-bottom: 40px;
+  }
+
+  &__image{
+    min-width: 33.333%;
+    cursor: pointer;
+    transition: transform 0.3s;
+
+    &:hover{
+      z-index: 10;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(black,0.3);
+    }
+  }
+
+}

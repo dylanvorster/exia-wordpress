@@ -1,0 +1,26 @@
+.exia-body{
+  min-height: 100%;
+  flex-direction: row;
+
+  &__back{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: fixed;
+    top:0;
+    left: 0;
+    bottom:0;
+    right:0;
+    z-index: 1;
+    opacity: 0.1;
+  }
+
+  &__front{
+    position: absolute;
+    z-index: 2;
+    left: 300px;
+    top:0;
+    bottom: 0;
+    right: 0;
+  }
+}

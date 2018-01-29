@@ -1,0 +1,23 @@
+.exia-tag{
+  font-weight: normal;
+  background-color: #1e1e1e;
+  float: left;
+  padding: 5px 10px;
+  color: rgba(white,0.4);
+  font-size: 12px;
+  margin-right: 5px;
+  margin-top: 5px;
+  font-family: 'Open Sans';
+  cursor: pointer !important;
+  transition: background 0.5s, color 0.5s;
+
+  &:hover{
+    background-color: darken(aqua,30%);
+    color: aqua;
+  }
+
+  &--selected{
+    background-color: darken(#aa00ff,30%);
+    color: #c456f4;
+  }
+}

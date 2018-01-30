@@ -4,6 +4,7 @@
   justify-content: center;
   -webkit-backdrop-filter: blur(5px);
 
+
   &__left{
     min-width: 50px;
 
@@ -24,6 +25,10 @@
     transition: width 1s;
     width: 1000px;
     box-sizing: border-box;
+
+    @include phone{
+      overflow-x: hidden;
+    }
 
     @include laptop{
       width: 800px;

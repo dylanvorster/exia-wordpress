@@ -11,6 +11,10 @@
   cursor: pointer !important;
   transition: background 0.5s, color 0.5s;
 
+  @include phone{
+    padding: 3px 6px;
+  }
+
   &:hover{
     background-color: darken(aqua,30%);
     color: aqua;

@@ -12,6 +12,17 @@
   transition: opacity 0.3s, transform 0.3s;
   transform: scale(1.1);
 
+  @include phone{
+    padding: 5px;
+  }
+
+  .image-gallery-thumbnails{
+    @include phone{
+      position: fixed;
+      bottom: 10px;
+    }
+  }
+
   &--visible{
     opacity: 1;
     transform: scale(1.0);
@@ -26,6 +37,13 @@
     width: 30px;
     height: 30px;
     filter: drop-shadow(1px 1px 1px rgb(0,0,0));
+
+    @include phone{
+      top: 20px;
+      right: 20px;
+      width: 20px;
+      height: 20px;
+    }
   }
 
   .image-gallery-image{
@@ -33,6 +51,11 @@
     img{
       height: calc(100vh - 200px);
       width: auto;
+
+      @include phone{
+        max-width: 100%;
+        height: auto;
+      }
     }
   }
 

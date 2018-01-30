@@ -5,17 +5,28 @@
   -webkit-backdrop-filter: blur(5px);
 
   &__left{
-    flex-grow: 0;
     min-width: 50px;
+
+    @include phone{
+      display: none;
+    }
   }
 
   &__right{
     min-width: 50px;
+
+    @include phone{
+      display: none;
+    }
   }
 
   &__center{
-    min-width: 1000px;
-    max-width: 1000px;
+    transition: width 1s;
+    width: 1000px;
     box-sizing: border-box;
+
+    @include laptop{
+      width: 800px;
+    }
   }
 }

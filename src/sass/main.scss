@@ -35,6 +35,27 @@ a{
   text-decoration: none;
 }
 
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin laptop {
+  @media (min-width: 1200px) and (max-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 800px) and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin phone {
+  @media (max-width: 800px) {
+    @content;
+  }
+}
+
 @import "PostWidget";
 @import "BodyWidget";
 @import "SidebarWidget";

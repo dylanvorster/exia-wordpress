@@ -33,13 +33,13 @@ export class WordpressStore {
 
         // always try featured image first
         if (post.featured_media && this.media.has('' + post.featured_media)) {
-            return this.media.get('' + post.featured_media).source_url;
+            return this.media.get('' + post.featured_media).media_details.sizes['large'].source_url;
         }
 
         // try linked images
         let media = this.mediaByPost(post);
         if (media.length > 0) {
-            return _.first(media).source_url;
+            return _.first(media).media_details.sizes['large'].source_url;
         }
     }
 

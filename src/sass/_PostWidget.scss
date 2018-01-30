@@ -63,6 +63,10 @@
     color: white;
     transition: transform 0.2s;
 
+    @include phone{
+      font-size: 20px;
+    }
+
     &:hover{
       color: aqua;
       transform: translateX(5px);
@@ -90,6 +94,10 @@
       padding-right: 150px;
       padding-bottom: 40px;
       line-height: 23px;
+
+      @include phone{
+        padding: 20px !important;
+      }
 
       a {
         color: aqua;

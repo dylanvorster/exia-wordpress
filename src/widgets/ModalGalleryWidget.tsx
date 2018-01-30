@@ -30,7 +30,7 @@ export class ModalGalleryWidget extends React.Component<ModalGalleryWidgetProps,
         window.removeEventListener("keydown", this.listener);
     }
 
-    close(){
+    close() {
         this.setState({fading: false});
         setTimeout(() => {
             this.props.app.galleryImages = []
@@ -52,14 +52,15 @@ export class ModalGalleryWidget extends React.Component<ModalGalleryWidgetProps,
 
     render() {
         return (
-            <div className={"exia-modal-gallery"+(this.state.fading?" exia-modal-gallery--visible":'')}>
-                <ImageGallery className="exia-modal-gallery__inner"
-                              items={_.map(this.props.app.galleryImages, (image, index) => {
-                                  return {
-                                      original: image,
-                                      thumbnail: image
-                                  };
-                              })}/>
+            <div className={"exia-modal-gallery" + (this.state.fading ? " exia-modal-gallery--visible" : '')}>
+                <ImageGallery
+                    startIndex={this.props.app.gallerySelectedImage} className="exia-modal-gallery__inner"
+                    items={_.map(this.props.app.galleryImages, (image, index) => {
+                        return {
+                            original: image,
+                            thumbnail: image
+                        };
+                    })}/>
                 <svg onClick={() => {
                     this.close();
                 }} viewBox="0 0 12 12" className="exia-modal-gallery__close" xmlns="http://www.w3.org/2000/svg">

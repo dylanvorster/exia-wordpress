@@ -45,7 +45,7 @@ export class SidebarWidget extends React.Component<SidebarWidgetProps>{
                     <div className="exia-sidebar__section-name">Tags</div>
                     <div className="exia-sidebar__tags">
                     {
-                        _.map(this.props.app.wpStore.tags.values(),(tag) => {
+                        _.map(_.take(_.orderBy(this.props.app.wpStore.tags.values(),['count'],['desc']), 20),(tag) => {
                             return (
                                 <TagWidget key={tag.id} app={this.props.app} tag={tag} />
                             );

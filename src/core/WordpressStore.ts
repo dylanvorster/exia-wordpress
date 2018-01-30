@@ -33,12 +33,14 @@ export class WordpressStore {
 
         // always try featured image first
         if (post.featured_media && this.media.has('' + post.featured_media)) {
-            return this.media.get('' + post.featured_media).media_details.sizes['large'].source_url;
+            if(this.media.get('' + post.featured_media).media_details.sizes['large']){
+                return this.media.get('' + post.featured_media).media_details.sizes['large'].source_url;
+            }
         }
 
         // try linked images
         let media = this.mediaByPost(post);
-        if (media.length > 0) {
+        if (media.length > 0 && _.first(media).media_details.sizes['large']) {
             return _.first(media).media_details.sizes['large'].source_url;
         }
     }

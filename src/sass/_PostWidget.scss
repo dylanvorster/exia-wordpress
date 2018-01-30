@@ -60,6 +60,13 @@
     font-size: 30px;
     margin-right: 20px;
     opacity: 0.6;
+    color: white;
+    transition: transform 0.2s;
+
+    &:hover {
+      color: aqua;
+      transform: translateX(5px);
+    }
   }
 
   &__date {

@@ -86,7 +86,9 @@ export class PostWidget extends React.Component<PostWidgetProps>{
                             {
                                 _.map(this.props.app.wpStore.categoriesByPost(this.props.post), (cat) => {
                                     return (
-                                        <div key={cat.id} className="exia-post__category">{cat.name}</div>
+                                        <LinkWidget to={cat.link}>
+                                            <div key={cat.id} className="exia-post__category">{cat.name}</div>
+                                        </LinkWidget>
                                     );
                                 })
                             }

@@ -33,12 +33,23 @@ export class SidebarWidget extends React.Component<SidebarWidgetProps>{
                     </LinkWidget>
                 }
                 <div className="exia-sidebar__section">
+                    {
+                        _.map(_.flatMap((window as any).Exia.menus),(menu: any) => {
+                            return (
+                                <LinkWidget key={menu.name} to={menu.link} >
+                                    <div  className="exia-sidebar__category">{menu.name}</div>
+                                </LinkWidget>
+                            );
+                        })
+                    }
+                </div>
+                <div className="exia-sidebar__section">
                     <div className="exia-sidebar__section-name">Categories</div>
                     {
                         _.map(this.props.app.wpStore.categories.values(),(cat) => {
                             return (
                                 <LinkWidget  key={cat.id} to={cat.link} >
-                                    <div key={cat.id} className="exia-sidebar__category">{cat.name}</div>
+                                    <div className="exia-sidebar__category">{cat.name}</div>
                                 </LinkWidget>
                             );
                         })

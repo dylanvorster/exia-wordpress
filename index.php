@@ -2,7 +2,8 @@
     $data = [
         'name' => get_bloginfo('name'),
         'description' => get_bloginfo('description'),
-        'adminBar' => is_admin_bar_showing()
+        'adminBar' => is_admin_bar_showing(),
+        'menus' => []
     ];
 
     // custom logo
@@ -10,6 +11,18 @@
     $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
     if($image && count($image) > 0){
         $data['customLogo'] = $image[0];
+    }
+
+    //wp_get_nav_menu_items($name)
+    $menus = wp_get_nav_menus();
+    foreach($menus as $menu){
+        $data['menus'][$menu->name] = [];
+        foreach(wp_get_nav_menu_items($menu) as $menuItem){
+            $data['menus'][$menu->name][] = [
+                'name' => $menuItem->title,
+                'link' => $menuItem->url
+            ];
+        }
     }
 ?>
 <!DOCTYPE html>

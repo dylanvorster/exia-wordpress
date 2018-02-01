@@ -7,6 +7,8 @@ import {TagWidget} from "./TagWidget";
 
 export interface SidebarWidgetProps{
     app: Application;
+    show: boolean;
+    pressed: () => any;
 }
 
 @observer
@@ -21,7 +23,9 @@ export class SidebarWidget extends React.Component<SidebarWidgetProps>{
         }
 
         return (
-            <div className="exia-sidebar" style={{top: top}}>
+            <div onClick={() => {
+                this.props.pressed();
+            }} className={"exia-sidebar "+(this.props.show?'exia-sidebar--show':'')} style={{top: top}}>
                 {
                     this.props.app.settings.customLogo &&
                     <LinkWidget to="/" >

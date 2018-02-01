@@ -37,7 +37,7 @@ export class GalleryWidget extends React.Component<GalleryWidgetProps, GalleryWi
                                 this.props.app.gallerySelectedImage = index;
                             }} key={id}
                                  className={"exia-gallery__image"}
-                                 src={image.medium}/>
+                                 src={image.large}/>
                         );
                     })
                 }

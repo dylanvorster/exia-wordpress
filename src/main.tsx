@@ -7,6 +7,7 @@ import {BrowserRouter} from 'react-router-dom';
 // tell webpack to build the styles
 require("./sass/main.scss");
 require("typeface-open-sans");
+require("font-awesome/css/font-awesome.min.css");
 
 /**
  * @author Dylan Vorster

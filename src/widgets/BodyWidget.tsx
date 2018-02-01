@@ -17,7 +17,7 @@ export interface BodyWidgetProps {
 }
 
 export interface BodyWidgetState {
-
+    showMenu: boolean;
 }
 
 @observer
@@ -25,7 +25,9 @@ class BodyWidget extends React.Component<BodyWidgetProps, BodyWidgetState> {
 
     constructor(props: BodyWidgetProps) {
         super(props);
-        this.state = {};
+        this.state = {
+            showMenu: false
+        };
     }
 
     generateRoute(path: string, page: any) {
@@ -58,9 +60,22 @@ class BodyWidget extends React.Component<BodyWidgetProps, BodyWidgetState> {
         return (
             <Switch>
                 <div className="exia-body">
+                    <div onClick={() => {
+                        this.setState({showMenu: !this.state.showMenu});
+                    }} className="exia-body__mobile-menu">
+                        <i className={"fa " + (this.state.showMenu ? 'fa-close' : 'fa-bars')}/>
+                    </div>
                     <div className="exia-body__back" style={style}/>
                     <div className="exia-body__front" style={{top: top}}>
-                        <SidebarWidget app={this.props.app}/>
+                        <SidebarWidget
+                            pressed={() => {
+                                if (this.state.showMenu) {
+                                    this.setState({showMenu: false});
+                                }
+                            }}
+                            show={this.state.showMenu}
+                            app={this.props.app}
+                        />
                         {this.generateRoute('/', PostsPage)}
                         {this.generateRoute('/:slug', PostPage)}
                         {this.generateRoute('/page/:slug', PagePage)}
@@ -70,7 +85,7 @@ class BodyWidget extends React.Component<BodyWidgetProps, BodyWidgetState> {
                     </div>
                     {
                         this.props.app.galleryImages.length > 0 &&
-                        <ModalGalleryWidget app={this.props.app} />
+                        <ModalGalleryWidget app={this.props.app}/>
                     }
                 </div>
             </Switch>

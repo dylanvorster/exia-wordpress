@@ -1,0 +1,7 @@
+*
+!dist/**/*
+!README.md
+!screenshot.png
+!style.css
+!index.php
+!functions.php

@@ -1,4 +1,16 @@
 {
+  "name": "@dylanvorster/exia",
+  "version": "1.0.0",
+  "author": "Dylan Vorster",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dylanvorster/exia-wordpress.git"
+  },
+  "scripts": {
+    "build":"export NODE_ENV=production && webpack && yarn pack"
+  },
+  "homepage": "https://github.com/dylanvorster/exia-wordpress",
+  "keywords": ["wordpress","exia","gundam","theme","dark","progressive", "responsive", "react", "typescript"],
   "dependencies": {
     "@types/lodash": "^4.14.97",
     "@types/node": "^9.4.0",

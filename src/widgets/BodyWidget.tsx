@@ -1,7 +1,6 @@
 import * as React from "react";
 import {PostsPage} from "../pages/PostsPage";
 import {Switch, Route} from "react-router-dom";
-import * as _ from "lodash";
 import {PostPage} from "../pages/PostPage";
 import {PagePage} from "../pages/PagePage";
 import {SidebarWidget} from "./SidebarWidget";

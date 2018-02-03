@@ -1,8 +1,10 @@
 <?php
 
 if(!is_admin()) {
-    wp_enqueue_style('GundamCSS', get_template_directory_uri() . '/dist/main.css');
-    wp_enqueue_script('GundamJS', get_template_directory_uri() . '/dist/main.js');
+    wp_enqueue_style('ExiaCSS', get_template_directory_uri() . '/dist/main.css');
+    wp_enqueue_script('ExiaJS', get_template_directory_uri() . '/dist/main.js');
+}else{
+    wp_enqueue_script('MetaBoxJS', get_template_directory_uri() . '/plugins/meta-boxes/meta-boxes.js');
 }
 
 add_theme_support('automatic-feed-links');
@@ -77,4 +79,30 @@ function customFormatGallery($string,$attr){
 
     }
     return $output.'</div>';
+}
+
+
+require_once __DIR__ . '/plugins/class-tgm-plugin-activation.php';
+add_action( 'tgmpa_register', 'prefix_register_required_plugins' );
+function prefix_register_required_plugins() {
+    $plugins = [
+        [
+            'name'     => 'Meta Box',
+            'slug'     => 'meta-box',
+            'required' => true,
+        ]
+    ];
+    $config  = [
+        'id' => 'your-id',
+    ];
+    tgmpa( $plugins, $config );
+}
+
+
+
+require_once __DIR__ . '/plugins/meta-boxes/meta-boxes.php';
+
+add_action( 'do_meta_boxes', 'remove_default_custom_fields_meta_box', 1, 3 );
+function remove_default_custom_fields_meta_box( $post_type, $context, $post ) {
+    remove_meta_box( 'postcustom', $post_type, $context );
 }

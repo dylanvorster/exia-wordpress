@@ -7,7 +7,7 @@
     "url": "https://github.com/dylanvorster/exia-wordpress.git"
   },
   "scripts": {
-    "build":"export NODE_ENV=production && webpack && yarn pack"
+    "build":"export NODE_ENV=production && webpack && zip -r exia-theme.zip dist/* plugins/* functions.php index.php README.md screenshot.png style.css"
   },
   "homepage": "https://github.com/dylanvorster/exia-wordpress",
   "keywords": ["wordpress","exia","gundam","theme","dark","progressive", "responsive", "react", "typescript"],

@@ -13,6 +13,7 @@ export class WordpressStore {
     categories: ObservableMap<WPCategory>;
     tags: ObservableMap<WPTag>;
     media: ObservableMap<WPMedia>;
+    pages: ObservableMap<WPPost>;
 
     @observable
     currentPost: WPPost;
@@ -21,6 +22,7 @@ export class WordpressStore {
         this.api = new WPAPI({endpoint: window.location.origin + '/wp-json'});
         this.posts = new ObservableMap();
         this.tags = new ObservableMap();
+        this.pages = new ObservableMap();
         this.categories = new ObservableMap();
         this.currentPost = null;
         this.media = new ObservableMap();
@@ -95,12 +97,25 @@ export class WordpressStore {
         });
     }
 
+    pageBySlug(slug: string): WPPost {
+        return _.find(this.pages.values(), {slug: slug});
+    }
+
+
     postBySlug(slug: string): WPPost {
         return _.find(this.posts.values(), {slug: slug});
     }
 
     mediaByPost(post: WPPost): WPMedia[] {
         return _.filter(this.media.values(), {post: post.id});
+    }
+
+    mergePages(data: WPPost[]) {
+        _.forEach(data, (page) => {
+            page.tags = page.tags || [];
+            page.categories = page.categories || [];
+            this.pages.set('' + page.id, page);
+        })
     }
 
     mergeCategories(data: WPCategory[]) {
@@ -156,6 +171,17 @@ export class WordpressStore {
                     this.mergePosts(posts);
                 })
         });
+    }
+
+    loadPage(pageSlug: string){
+        return this.api.pages().slug(pageSlug).embed()
+            .then(action((data: WPPost[]) => {
+                this.mergePages(data);
+                if (data.length > 0) {
+                    return data[0];
+                }
+                return null;
+            }))
     }
 
     loadTagPosts(tagSlug: string){

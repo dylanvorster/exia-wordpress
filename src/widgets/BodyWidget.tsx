@@ -77,7 +77,7 @@ class BodyWidget extends React.Component<BodyWidgetProps, BodyWidgetState> {
                         />
                         {this.generateRoute('/', PostsPage)}
                         {this.generateRoute('/:slug', PostPage)}
-                        {this.generateRoute('/page/:slug', PagePage)}
+                        {this.generateRoute('/page/:page', PagePage)}
                         {this.generateRoute('/:year/:month/:day/:slug', PostPage)}
                         {this.generateRoute('/tag/:tag', TagPage)}
                         {this.generateRoute('/category/:category', CategoryPage)}

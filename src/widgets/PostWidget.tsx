@@ -77,8 +77,7 @@ export class PostWidget extends React.Component<PostWidgetProps> {
                     width="100%"
                     height="166"
                     scrolling="no"
-                    frameborder="no"
-                    allow="autoplay"
+                    frameBorder="no"
                     src={
                         "https://w.soundcloud.com/player/?url=" + encodeURI(this.props.post['metabox_soundcloud']) +
                         "&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true"}

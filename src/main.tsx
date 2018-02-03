@@ -8,6 +8,7 @@ import {BrowserRouter} from 'react-router-dom';
 require("./sass/main.scss");
 require("typeface-open-sans");
 require("font-awesome/css/font-awesome.min.css");
+require("react-nprogress/nprogress.css");
 
 import 'autotrack';
 
@@ -20,9 +21,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // google analytics if defined
     if((window as any).ga){
-        (window as any)('require', 'eventTracker');
-        (window as any)('require', 'outboundLinkTracker');
-        (window as any)('require', 'urlChangeTracker');
+        (window as any).ga('require', 'eventTracker');
+        (window as any).ga('require', 'outboundLinkTracker');
+        (window as any).ga('require', 'urlChangeTracker');
     }
 
     ReactDOM.render(

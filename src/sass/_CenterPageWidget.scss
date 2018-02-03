@@ -6,7 +6,6 @@
 
   &__title{
     font-family: 'visitor';
-    //color: white;
     color: #c456f4;
     font-size: 30px;
     background-color: darken(#aa00ff,40%);
@@ -14,6 +13,23 @@
     margin-bottom: 20px;
   }
 
+  &__sad{
+    font-family: 'visitor';
+    color: #c456f4;
+    font-size: 100px;
+  }
+
+  &__nothing{
+    background: rgba(black,0.9);
+    padding: 60px;
+    text-align: center;
+  }
+
+  &__text{
+    font-family: 'Open Sans';
+    color: white;
+    font-size: 20px;
+  }
 
   &__left{
     min-width: 50px;

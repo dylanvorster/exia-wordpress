@@ -2,6 +2,7 @@ import WPAPI = require( 'wpapi' );
 import {ObservableMap, action, observable} from "mobx";
 import {WPCategory, WPMedia, WPPost, WPTag} from "./Common";
 import * as _ from "lodash";
+import nprogress = require("react-nprogress");
 
 /**
  * @author Dylan Vorster
@@ -17,6 +18,7 @@ export class WordpressStore {
 
     @observable
     currentPost: WPPost;
+    loading: boolean;
 
     constructor() {
         this.api = new WPAPI({endpoint: window.location.origin + '/wp-json'});
@@ -26,6 +28,19 @@ export class WordpressStore {
         this.categories = new ObservableMap();
         this.currentPost = null;
         this.media = new ObservableMap();
+    }
+
+    start(){
+        this.loading = true;
+        nprogress.start();
+    }
+
+    end(){
+        setTimeout(() => {
+            if(this.loading){
+                nprogress.done();
+            }
+        }, 100);
     }
 
     getFeatureImage(post): string {
@@ -149,9 +164,11 @@ export class WordpressStore {
 
     loadFeatureImage(post: WPPost) {
         if (post.featured_media && !this.media.has('' + post.featured_media)) {
+            this.start();
             return this.api.media().id(post.featured_media)
                 .then((data: WPMedia) => {
                     this.media.set('' + data.id, data);
+                    this.end();
                 })
         }
     }
@@ -162,6 +179,7 @@ export class WordpressStore {
         if(!cat){
             promise = this.loadCategory(catSlug)
         }
+        this.start();
         promise.then((tag: WPTag) => {
             this.api
                 .posts()
@@ -169,13 +187,16 @@ export class WordpressStore {
                 .orderby('date').param( 'categories', cat.id )
                 .then((posts) => {
                     this.mergePosts(posts);
+                    this.end();
                 })
         });
     }
 
     loadPage(pageSlug: string){
+        this.start();
         return this.api.pages().slug(pageSlug).embed()
             .then(action((data: WPPost[]) => {
+                this.end();
                 this.mergePages(data);
                 if (data.length > 0) {
                     return data[0];
@@ -190,27 +211,33 @@ export class WordpressStore {
         if(!tag){
             promise = this.loadTag(tagSlug)
         }
+        this.start();
         promise.then((tag: WPTag) => {
             this.api
                 .posts()
                 .order('desc')
                 .orderby('date').param( 'tags', tag.id )
                 .then((posts) => {
+                    this.end();
                     this.mergePosts(posts);
                 })
         });
     }
 
     loadMedia(post: WPPost) {
+        this.start();
         this.api.media().parent(post.id).then(action((media: WPMedia[]) => {
+            this.end();
             this.mergeMedia(media);
             this.loadFeatureImage(post);
         }))
     }
 
     loadPost(slug: string): Promise<WPPost> {
+        this.start();
         return this.api.posts().slug(slug).embed()
             .then(action((data: WPPost[]) => {
+                this.end();
                 this.mergePosts(data);
                 if (data.length > 0) {
                     return data[0];
@@ -220,6 +247,7 @@ export class WordpressStore {
     }
 
     loadPosts(page = 1, limit = 10) {
+        this.start();
         return this.api
             .posts()
             .perPage(limit)
@@ -227,34 +255,43 @@ export class WordpressStore {
             .order('desc')
             .orderby('date')
             .then(action((data: WPPost[]) => {
+                this.end();
                 this.mergePosts(data);
             }))
     }
 
     loadTag(slug: string): Promise<WPTag>{
+        this.start();
         return this.api.tags().slug(slug).then((tags: WPTag[]) => {
+            this.end();
             this.mergeTags(tags);
             return _.first(tags);
         });
     }
 
     loadTags() {
+        this.start();
         this.api.tags()
             .then(action((data: WPTag[]) => {
+                this.end();
                 this.mergeTags(data);
             }))
 
     }
 
     loadCategories() {
+        this.start();
         this.api.categories()
             .then(action((data: WPCategory[]) => {
+                this.end();
                 this.mergeCategories(data);
             }))
     }
 
     loadCategory(slug: string): Promise<WPCategory>{
+        this.start();
         return this.api.categories().slug(slug).then((cats: WPCategory[]) => {
+            this.end();
             this.mergeCategories(cats);
             return _.first(cats);
         });

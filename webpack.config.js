@@ -6,6 +6,9 @@ var plugins = [];
 if (process.env.NODE_ENV === 'production') {
     console.log("creating production build");
     plugins.push(new webpack.optimize.UglifyJsPlugin({
+        uglifyOptions: {
+            ecma: 6
+        },
         mangle: {
             keep_fnames: true
         },

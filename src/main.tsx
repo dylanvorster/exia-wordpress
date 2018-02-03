@@ -10,7 +10,7 @@ require("typeface-open-sans");
 require("font-awesome/css/font-awesome.min.css");
 require("react-nprogress/nprogress.css");
 
-import 'autotrack';
+require('autotrack/autotrack.js');
 
 /**
  * @author Dylan Vorster

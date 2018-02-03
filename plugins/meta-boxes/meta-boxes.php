@@ -14,7 +14,6 @@ add_filter('rwmb_meta_boxes', function ($meta_boxes) {
         'pages' => array('post'),
         'context' => 'normal',
         'priority' => 'high',
-        'post_types' => 'video',
         'fields' => array(
 
             /**
@@ -58,7 +57,6 @@ add_filter('rwmb_meta_boxes', function ($meta_boxes) {
         'pages' => array('post'),
         'context' => 'normal',
         'priority' => 'high',
-        'post_types' => 'audio',
         'fields' => array(
 
             /**
@@ -85,7 +83,6 @@ add_filter('rwmb_meta_boxes', function ($meta_boxes) {
                 'name' => esc_html__('SoundCloud URL', 'exia'),
                 'id' => "{$prefix}audio_url",
                 'desc' => esc_html__('Insert a link (URL) on a song from the SoundCloud service', 'exia'),
-                'type' => 'oembed',
             ),
 
         )
@@ -93,3 +90,18 @@ add_filter('rwmb_meta_boxes', function ($meta_boxes) {
     
     return $meta_boxes;
 });
+
+
+add_action( 'rest_api_init', function () {
+    register_rest_field( 'post', 'metabox_soundcloud', array(
+        'get_callback' => function( $post_arr ) {
+            if($post_arr['format'] === 'audio'){
+                return rwmb_meta('exia_mb_audio_url' , [], $post_arr['id'] );
+            }
+        },
+        'schema' => array(
+            'description' => __( 'Soundcloud URL.' ),
+            'type'        => 'string'
+        ),
+    ) );
+} );

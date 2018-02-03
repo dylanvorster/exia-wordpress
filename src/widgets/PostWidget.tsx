@@ -89,7 +89,6 @@ export class PostWidget extends React.Component<PostWidgetProps> {
 
     render() {
         let featured = this.props.app.wpStore.getFeatureImage(this.props.post);
-        console.log(this.props.post);
         return (
             <div className="exia-post">
                 {

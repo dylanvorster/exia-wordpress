@@ -5,31 +5,31 @@ import * as _ from "lodash";
 import {PostWidget} from "../widgets/PostWidget";
 import {CenterPageWidget} from "../widgets/CenterPageWidget";
 
-export interface TagPageProps{
+export interface TagPageProps {
     app: Application;
-    category:string;
+    category: string;
 }
 
 @observer
-export class CategoryPage extends React.Component<TagPageProps>{
+export class CategoryPage extends React.Component<TagPageProps> {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.app.wpStore.setCurrentPost(null);
         this.props.app.wpStore.loadCategoryPosts(this.props.category);
     }
 
-    render(){
-        return(
-            <CenterPageWidget>
+    render() {
+        return (
+            <CenterPageWidget name={"Category: " + this.props.category}>
                 {
                     _.map(this.props.app.wpStore.postsByCategory(this.props.app.wpStore.categoryBySlug(this.props.category)), (post) => {
                         return (
-                            <PostWidget full={false} key={post.id} post={post} app={this.props.app} />
+                            <PostWidget full={false} key={post.id} post={post} app={this.props.app}/>
                         );
                     })
                 }

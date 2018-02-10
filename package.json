@@ -7,7 +7,7 @@
     "url": "https://github.com/dylanvorster/exia-wordpress.git"
   },
   "scripts": {
-    "build": "export NODE_ENV=production && webpack && zip -r exia-theme.zip dist/* plugins/* functions.php index.php README.md screenshot.png style.css"
+    "build": "export NODE_ENV=production && webpack && zip -r exia-theme.zip dist/* plugins/* functions.php index.php README.md screenshot.* style.css"
   },
   "homepage": "https://github.com/dylanvorster/exia-wordpress",
   "keywords": [

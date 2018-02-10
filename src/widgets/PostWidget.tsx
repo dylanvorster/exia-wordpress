@@ -119,17 +119,18 @@ export class PostWidget extends React.Component<PostWidgetProps> {
 
     render() {
 
+        let content = this.getSoundCloud() || this.getYoutube();
+
         return (
             <div className="exia-post">
                 {this.portals}
-                {this.getSoundCloud()}
-                {this.getYoutube()}
+                { content }
                 {
-                    this.props.full ? this.getFeatured() : (
+                    !content && (this.props.full ? this.getFeatured() : (
                         <LinkWidget to={this.props.post.link}>
                             {this.getFeatured()}
                         </LinkWidget>
-                    )
+                    ))
                 }
                 <div className="exia-post__top">
                     <div className="exia-post__meta">

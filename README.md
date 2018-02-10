@@ -1,6 +1,6 @@
 # Exia Wordpress Theme
 
-![](./screenshot.png)
+![](./screenshot.jpg)
 
 ### Features
 
@@ -10,4 +10,4 @@
 * Fullscreen Gallery images and Featured Images
 * Per-gallery light or dark theme
 
-![](./screenshot2.png)
+![](./screenshot2.jpg)

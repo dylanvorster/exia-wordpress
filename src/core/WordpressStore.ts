@@ -33,14 +33,14 @@ export class WordpressStore {
         this.loading = false;
     }
 
-    start(){
+    start() {
         this.loading = true;
         nprogress.start();
     }
 
-    end(){
+    end() {
         setTimeout(() => {
-            if(this.loading){
+            if (this.loading) {
                 this.loading = false;
                 nprogress.done();
             }
@@ -54,7 +54,7 @@ export class WordpressStore {
 
         // always try featured image first
         if (post.featured_media && this.media.has('' + post.featured_media)) {
-            if(this.media.get('' + post.featured_media).media_details.sizes['large']){
+            if (this.media.get('' + post.featured_media).media_details.sizes['large']) {
                 return this.media.get('' + post.featured_media).media_details.sizes['large'].source_url;
             }
         }
@@ -82,12 +82,12 @@ export class WordpressStore {
         });
     }
 
-    categoryBySlug(name: string): WPCategory{
-        return _.find(this.categories.values(),{slug: name});
+    categoryBySlug(name: string): WPCategory {
+        return _.find(this.categories.values(), {slug: name});
     }
 
-    tagBySlug(name: string): WPTag{
-        return _.find(this.tags.values(),{slug: name});
+    tagBySlug(name: string): WPTag {
+        return _.find(this.tags.values(), {slug: name});
     }
 
     tagsByPost(post: WPPost): WPTag[] {
@@ -96,9 +96,9 @@ export class WordpressStore {
         });
     }
 
-    postsByCategory(cat: WPCategory): WPPost[]{
+    postsByCategory(cat: WPCategory): WPPost[] {
         let posts = this.posts.values();
-        if(!cat){
+        if (!cat) {
             return [];
         }
         return _.filter(posts, (post) => {
@@ -106,9 +106,9 @@ export class WordpressStore {
         });
     }
 
-    postsByTag(tag: WPTag): WPPost[]{
+    postsByTag(tag: WPTag): WPPost[] {
         let posts = this.posts.values();
-        if(!tag){
+        if (!tag) {
             return [];
         }
         return _.filter(posts, (post) => {
@@ -173,13 +173,16 @@ export class WordpressStore {
                     this.media.set('' + data.id, data);
                     this.end();
                 })
+                .catch(() => {
+                    this.end()
+                })
         }
     }
 
-    loadCategoryPosts(catSlug: string){ // rainworld :P
+    loadCategoryPosts(catSlug: string) { // rainworld :P
         let cat = this.categoryBySlug(catSlug);
         let promise = Promise.resolve(cat);
-        if(!cat){
+        if (!cat) {
             promise = this.loadCategory(catSlug)
         }
         this.start();
@@ -187,15 +190,18 @@ export class WordpressStore {
             this.api
                 .posts()
                 .order('desc')
-                .orderby('date').param( 'categories', cat.id )
+                .orderby('date').param('categories', cat.id)
                 .then((posts) => {
                     this.mergePosts(posts);
                     this.end();
                 })
-        });
+        })
+            .catch(() => {
+                this.end()
+            })
     }
 
-    loadPage(pageSlug: string){
+    loadPage(pageSlug: string) {
         this.start();
         return this.api.pages().slug(pageSlug).embed()
             .then(action((data: WPPost[]) => {
@@ -206,12 +212,15 @@ export class WordpressStore {
                 }
                 return null;
             }))
+            .catch(() => {
+                this.end()
+            })
     }
 
-    loadTagPosts(tagSlug: string){
+    loadTagPosts(tagSlug: string) {
         let tag = this.tagBySlug(tagSlug);
         let promise = Promise.resolve(tag);
-        if(!tag){
+        if (!tag) {
             promise = this.loadTag(tagSlug)
         }
         this.start();
@@ -219,12 +228,16 @@ export class WordpressStore {
             this.api
                 .posts()
                 .order('desc')
-                .orderby('date').param( 'tags', tag.id )
+                .orderby('date').param('tags', tag.id)
                 .then((posts) => {
                     this.end();
                     this.mergePosts(posts);
                 })
-        });
+        })
+            .catch(() => {
+                this.end()
+            })
+
     }
 
     loadMedia(post: WPPost) {
@@ -234,6 +247,9 @@ export class WordpressStore {
             this.mergeMedia(media);
             this.loadFeatureImage(post);
         }))
+            .catch(() => {
+                this.end()
+            })
     }
 
     loadPost(slug: string): Promise<WPPost> {
@@ -247,6 +263,9 @@ export class WordpressStore {
                 }
                 return null;
             }))
+            .catch(() => {
+                this.end()
+            })
     }
 
     loadPosts(page = 1, limit = 10) {
@@ -261,15 +280,21 @@ export class WordpressStore {
                 this.end();
                 this.mergePosts(data);
             }))
+            .catch(() => {
+                this.end()
+            })
     }
 
-    loadTag(slug: string): Promise<WPTag>{
+    loadTag(slug: string): Promise<WPTag> {
         this.start();
         return this.api.tags().slug(slug).then((tags: WPTag[]) => {
             this.end();
             this.mergeTags(tags);
             return _.first(tags);
-        });
+        })
+            .catch(() => {
+                this.end()
+            })
     }
 
     loadTags() {
@@ -279,6 +304,9 @@ export class WordpressStore {
                 this.end();
                 this.mergeTags(data);
             }))
+            .catch(() => {
+                this.end()
+            })
 
     }
 
@@ -289,15 +317,21 @@ export class WordpressStore {
                 this.end();
                 this.mergeCategories(data);
             }))
+            .catch(() => {
+                this.end()
+            })
     }
 
-    loadCategory(slug: string): Promise<WPCategory>{
+    loadCategory(slug: string): Promise<WPCategory> {
         this.start();
         return this.api.categories().slug(slug).then((cats: WPCategory[]) => {
             this.end();
             this.mergeCategories(cats);
             return _.first(cats);
-        });
+        })
+            .catch(() => {
+                this.end()
+            })
     }
 
 }

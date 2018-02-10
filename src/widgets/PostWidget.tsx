@@ -88,8 +88,20 @@ export class PostWidget extends React.Component<PostWidgetProps> {
         }
     }
 
-    render() {
+    getFeatured() {
         let featured = this.props.app.wpStore.getFeatureImage(this.props.post);
+        if (featured) {
+            return (
+                <div onClick={() => {
+                    this.props.app.galleryImages = [featured];
+                    this.props.app.gallerySelectedImage = 0;
+                }} className="exia-post__featured" style={{backgroundImage: 'url(' + featured + ')'}}/>
+            );
+        }
+    }
+
+    render() {
+
         return (
             <div className="exia-post">
                 {
@@ -99,10 +111,11 @@ export class PostWidget extends React.Component<PostWidgetProps> {
                     this.getSoundCloud()
                 }
                 {
-                    featured && <div onClick={() => {
-                        this.props.app.galleryImages = [featured];
-                        this.props.app.gallerySelectedImage = 0;
-                    }} className="exia-post__featured" style={{backgroundImage: 'url(' + featured + ')'}}/>
+                    this.props.full ? this.getFeatured() : (
+                        <LinkWidget to={this.props.post.link}>
+                            {this.getFeatured()}
+                        </LinkWidget>
+                    )
                 }
                 <div className="exia-post__top">
                     <div className="exia-post__meta">

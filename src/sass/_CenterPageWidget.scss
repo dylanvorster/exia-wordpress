@@ -1,7 +1,14 @@
 .exia-centerpage {
   -webkit-backdrop-filter: blur(5px);
   $sizeLarge: 1000px;
+  $sizeLaptop: 800px;
   $arrow-width: 100px;
+
+  @include phone {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+  }
 
   &__title {
     font-family: 'visitor';
@@ -68,6 +75,10 @@
   &__left {
     margin-left: - ($sizeLarge/2) + ($sidebar-width/2) - ($arrow-width/2);
 
+    @include laptop{
+      margin-left: - ($sizeLaptop/2) + ($sidebar-width/2) - ($arrow-width/2);
+    }
+
     &:hover{
       .fa{
         transform: translateX(-10px);
@@ -77,6 +88,10 @@
 
   &__right {
     margin-left: ($sizeLarge/2) + ($sidebar-width/2) + ($arrow-width/2);
+
+    @include laptop{
+      margin-left: ($sizeLaptop/2) + ($sidebar-width/2) + ($arrow-width/2);
+    }
 
     &:hover{
       .fa{
@@ -96,8 +111,14 @@
     flex-direction: column;
     min-height: 100vh;
 
+    @include laptop{
+      width: $sizeLaptop;
+    }
+
     @include phone {
       overflow-x: hidden;
+      box-sizing: border-box;
+      position: relative;
     }
 
   }

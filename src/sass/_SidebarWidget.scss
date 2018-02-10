@@ -10,6 +10,7 @@
   box-sizing: border-box;
   z-index: 3;
   -webkit-backdrop-filter: blur(5px);
+  overflow-y: auto;
 
   @include phone{
     background: rgba(black, 0.95);

@@ -1,24 +1,42 @@
 import * as React from "react";
+import {Application} from "../core/Application";
+import {LoaderWidget} from "./LoaderWidget";
+import {LinkWidget} from "./LinkWidget";
+import {observer} from "mobx-react";
 
 export interface CenterPageWidgetProps {
     name?: string;
+    app: Application;
+    left?: string;
+    right?: string;
 }
 
+@observer
 export class CenterPageWidget extends React.Component<CenterPageWidgetProps> {
 
     render() {
         return (
             <div className="exia-centerpage">
-                <div className="exia-centerpage__left">
-
-                </div>
+                {
+                    this.props.left &&
+                        <LinkWidget to={this.props.left}>
+                            <div className="exia-centerpage__left">
+                                <div className="fa fa-angle-left" />
+                            </div>
+                        </LinkWidget>
+                }
                 <div className="exia-centerpage__center">
                     {this.props.name && <div className="exia-centerpage__title">{this.props.name}</div>}
                     {this.getChildren()}
                 </div>
-                <div className="exia-centerpage__right">
-
-                </div>
+                {
+                    this.props.right &&
+                        <LinkWidget to={this.props.right}>
+                            <div className="exia-centerpage__right">
+                                <div className="fa fa-angle-right" />
+                            </div>
+                        </LinkWidget>
+                }
             </div>
         );
     }
@@ -29,6 +47,17 @@ export class CenterPageWidget extends React.Component<CenterPageWidgetProps> {
             return children;
         }
 
+
+        // show loader
+        if(this.props.app.wpStore.loading){
+            return (
+                <div  className="exia-centerpage__loading">
+                    <LoaderWidget />
+                </div>
+            )
+        }
+
+        // otherwise there is probably not
         return (
             <div  className="exia-centerpage__nothing">
                 <div  className="exia-centerpage__sad">:(</div>

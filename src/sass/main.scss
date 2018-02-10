@@ -1,3 +1,8 @@
+$tablet-width: 1200px;
+$desktop-width: 1400px;
+$phone-width: 800px;
+$sidebar-width: 300px;
+
 *{
   padding: 0;
   margin: 0;
@@ -35,23 +40,20 @@ a{
   text-decoration: none;
 }
 
-$tablet-width: 768px;
-$desktop-width: 1024px;
-
 @mixin laptop {
-  @media (min-width: 1200px) and (max-width: 1400px) {
+  @media (min-width: $tablet-width) and (max-width: $desktop-width) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (min-width: 800px) and (max-width: 1200px) {
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
     @content;
   }
 }
 
 @mixin phone {
-  @media (max-width: 700px) {
+  @media (max-width: $phone-width) {
     @content;
   }
 }
@@ -63,4 +65,6 @@ $desktop-width: 1024px;
 @import "TagWidget";
 @import "GalleryWidget";
 @import "ModalGalleryWidget";
+@import "LoaderWidget";
+
 @import "../../node_modules/react-image-gallery/styles/scss/image-gallery.scss";

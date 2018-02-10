@@ -1,6 +1,7 @@
-var webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var plugins = [];
+const webpack = require("webpack");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const autoprefixer = require('autoprefixer');
+const plugins = [];
 
 //do we minify it all
 if (process.env.NODE_ENV === 'production') {
@@ -51,8 +52,11 @@ module.exports = [
                 {
                     test: /\.scss$/,
                     use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: ['css-loader', 'sass-loader']
+                        use: [
+                            'css-loader',
+                            'postcss-loader',
+                            'sass-loader'
+                        ]
                     })
                 },
                 {

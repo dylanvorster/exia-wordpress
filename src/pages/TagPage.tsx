@@ -25,7 +25,7 @@ export class TagPage extends React.Component<TagPageProps> {
 
     render() {
         return (
-            <CenterPageWidget name={"Tag: " + this.props.tag}>
+            <CenterPageWidget app={this.props.app} name={"Tag: " + this.props.tag}>
                 {
                     _.map(this.props.app.wpStore.postsByTag(this.props.app.wpStore.tagBySlug(this.props.tag)), (post) => {
                         return (

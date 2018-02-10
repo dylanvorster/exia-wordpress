@@ -62,15 +62,17 @@ export class PostWidget extends React.Component<PostWidgetProps> {
                 };
             }
 
-            this.portals.push(ReactDOM.createPortal(<GalleryWidget light={gallery.getAttribute('data-light') === 'true'}
-                                                                   app={this.props.app}
-                                                                   images={imagePayload}/>, gallery));
+            this.portals.push(ReactDOM.createPortal(<GalleryWidget
+                columns={parseInt(gallery.getAttribute('data-columns'))}
+                light={gallery.getAttribute('data-light') === 'true'}
+                app={this.props.app}
+                images={imagePayload}/>, gallery));
         }
         this.forceUpdate();
     }
 
     getSoundCloud() {
-        if(this.props.post['metabox_soundcloud']){
+        if (this.props.post['metabox_soundcloud']) {
             return (
                 <iframe
                     className={"exia-post__soundcloud"}
@@ -97,7 +99,7 @@ export class PostWidget extends React.Component<PostWidgetProps> {
                     this.getSoundCloud()
                 }
                 {
-                    this.props.post.featured_media > 0 && <div onClick={() => {
+                    featured && <div onClick={() => {
                         this.props.app.galleryImages = [featured];
                         this.props.app.gallerySelectedImage = 0;
                     }} className="exia-post__featured" style={{backgroundImage: 'url(' + featured + ')'}}/>
@@ -108,7 +110,7 @@ export class PostWidget extends React.Component<PostWidgetProps> {
                             {
                                 _.map(this.props.app.wpStore.categoriesByPost(this.props.post), (cat) => {
                                     return (
-                                        <LinkWidget to={cat.link}>
+                                        <LinkWidget key={cat.id} to={cat.link}>
                                             <div key={cat.id} className="exia-post__category">{cat.name}</div>
                                         </LinkWidget>
                                     );

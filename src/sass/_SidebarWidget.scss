@@ -1,6 +1,6 @@
 .exia-sidebar {
-  min-width: 300px;
-  max-width: 300px;
+  min-width: $sidebar-width;
+  max-width: $sidebar-width;
   background: rgba(black, 0.7);
   position: fixed;
   top: 0;

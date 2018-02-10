@@ -27,7 +27,7 @@ export class PagePage extends React.Component<PagePageProps>{
     render(){
         let page = this.props.app.wpStore.pageBySlug(this.props.page);
         return(
-            <CenterPageWidget>
+            <CenterPageWidget app={this.props.app}>
                 {page && <PostWidget full={true} post={page} app={this.props.app} />}
             </CenterPageWidget>
         );

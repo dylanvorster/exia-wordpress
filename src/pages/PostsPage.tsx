@@ -22,7 +22,7 @@ export class PostsPage extends React.Component<PostsPageProps>{
 
     render(){
         return(
-            <CenterPageWidget>
+            <CenterPageWidget app={this.props.app}>
                 {
                     _.map(this.props.app.wpStore.posts.values(), (post) => {
                         return (

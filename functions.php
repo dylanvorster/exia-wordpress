@@ -68,7 +68,7 @@ add_action('print_media_templates', function(){
 
 add_filter('post_gallery','customFormatGallery',10,2);
 function customFormatGallery($string,$attr){
-    $output = '<div class="exia-gallery-placeholder" data-light="'.($attr['light_mode'] === true?'true':'false').'">';
+    $output = '<div class="exia-gallery-placeholder" data-columns="'.$attr['columns'].'" data-light="'.($attr['light_mode'] === true?'true':'false').'">';
     $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
     foreach($posts as $imagePost){
         $output .= '<div
@@ -76,7 +76,6 @@ function customFormatGallery($string,$attr){
             data-medium="'.wp_get_attachment_image_src($imagePost->ID, 'medium')[0].'"
             data-large="'.wp_get_attachment_image_src($imagePost->ID, 'large')[0].'"
          ></div>';
-
     }
     return $output.'</div>';
 }
@@ -106,3 +105,17 @@ add_action( 'do_meta_boxes', 'remove_default_custom_fields_meta_box', 1, 3 );
 function remove_default_custom_fields_meta_box( $post_type, $context, $post ) {
     remove_meta_box( 'postcustom', $post_type, $context );
 }
+
+
+add_filter( 'rest_prepare_post', function( $response, $post, $request ) {
+  // Only do this for single post requests.
+    global $post;
+    // Get the so-called next post.
+    $next = get_adjacent_post( false, '', false );
+    // Get the so-called previous post.
+    $previous = get_adjacent_post( false, '', true );
+    // Format them a bit and only send id and slug (or null, if there is no next/previous post).
+    $response->data['next'] = ( is_a( $next, 'WP_Post') ) ? array( "id" => $next->ID, "link" => get_permalink($next) ) : null;
+    $response->data['previous'] = ( is_a( $previous, 'WP_Post') ) ? array( "id" => $previous->ID, "link" => get_permalink($previous) ) : null;
+    return $response;
+}, 10, 3 );

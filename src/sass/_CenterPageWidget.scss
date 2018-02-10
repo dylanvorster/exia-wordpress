@@ -1,63 +1,104 @@
-.exia-centerpage{
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
+.exia-centerpage {
   -webkit-backdrop-filter: blur(5px);
+  $sizeLarge: 1000px;
+  $arrow-width: 100px;
 
-  &__title{
+  &__title {
     font-family: 'visitor';
     color: #c456f4;
     font-size: 30px;
-    background-color: darken(#aa00ff,40%);
+    background-color: darken(#aa00ff, 40%);
     padding: 20px;
     margin-bottom: 20px;
   }
 
-  &__sad{
+  &__sad {
     font-family: 'visitor';
     color: #c456f4;
     font-size: 100px;
   }
 
-  &__nothing{
-    background: rgba(black,0.9);
+  &__loading {
+    background: rgba(black, 0.9);
+    padding: 40px;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  &__nothing {
+    background: rgba(black, 0.9);
     padding: 60px;
     text-align: center;
   }
 
-  &__text{
+  &__text {
     font-family: 'Open Sans';
     color: white;
     font-size: 20px;
   }
 
-  &__left{
-    min-width: 50px;
+  &__left, &__right {
+    color: white;
+    font-size: 70px !important;
+    height: 100%;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: $arrow-width;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.2;
+    cursor: pointer;
 
-    @include phone{
+    .fa{
+      transition: transform 0.2s;
+      transform-origin: center center;
+    }
+
+    &:hover{
+      opacity: 1.0;
+    }
+
+    @include phone {
       display: none;
     }
   }
 
-  &__right{
-    min-width: 50px;
+  &__left {
+    margin-left: - ($sizeLarge/2) + ($sidebar-width/2) - ($arrow-width/2);
 
-    @include phone{
-      display: none;
+    &:hover{
+      .fa{
+        transform: translateX(-10px);
+      }
     }
   }
 
-  &__center{
+  &__right {
+    margin-left: ($sizeLarge/2) + ($sidebar-width/2) + ($arrow-width/2);
+
+    &:hover{
+      .fa{
+        transform: translateX(+10px);
+      }
+    }
+  }
+
+  &__center {
+    position: absolute;
     transition: width 1s;
-    width: 1000px;
+    width: $sizeLarge;
+    left: 50%;
+    transform: translateX(-50%);
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 
-    @include phone{
+    @include phone {
       overflow-x: hidden;
     }
 
-    @include laptop{
-      width: 800px;
-    }
   }
 }

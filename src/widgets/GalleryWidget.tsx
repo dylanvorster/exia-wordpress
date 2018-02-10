@@ -7,8 +7,9 @@ var Masonry = require('react-masonry-component');
 
 export interface GalleryWidgetProps {
     app: Application;
-    images: { [id: string]: {large: string, medium: string} };
+    images: { [id: string]: { large: string, medium: string } };
     light: boolean;
+    columns: number;
 }
 
 export interface GalleryWidgetState {
@@ -19,24 +20,27 @@ export class GalleryWidget extends React.Component<GalleryWidgetProps, GalleryWi
 
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
     }
 
     render() {
         let i = -1;
         return (
-            <Masonry options={{transitionDuration: '0s'}} className={"exia-gallery"+(this.props.light?' exia-gallery--light':'')}>
+            <Masonry options={{transitionDuration: '0s'}}
+                     className={"exia-gallery" + (this.props.light ? ' exia-gallery--light' : '')}>
                 {
                     _.map(this.props.images, (image, id) => {
                         i++;
-                        let index = i +0;
+                        let index = i + 0;
                         return (
-                            <img onClick={() => {
-                                this.props.app.galleryImages = _.map(this.props.images,'large');
+                            <img style={{
+                                minWidth: (100 / (this.props.columns || 3)) + "%",
+                                maxWidth: (100 / (this.props.columns || 3)) + "%"
+                            }} onClick={() => {
+                                this.props.app.galleryImages = _.map(this.props.images, 'large');
                                 this.props.app.gallerySelectedImage = index;
                             }} key={id}
-                                 className={"exia-gallery__image"}
+                                 className="exia-gallery__image"
                                  src={image.large}/>
                         );
                     })

@@ -18,6 +18,8 @@ export class WordpressStore {
 
     @observable
     currentPost: WPPost;
+
+    @observable
     loading: boolean;
 
     constructor() {
@@ -28,6 +30,7 @@ export class WordpressStore {
         this.categories = new ObservableMap();
         this.currentPost = null;
         this.media = new ObservableMap();
+        this.loading = false;
     }
 
     start(){
@@ -38,9 +41,10 @@ export class WordpressStore {
     end(){
         setTimeout(() => {
             if(this.loading){
+                this.loading = false;
                 nprogress.done();
             }
-        }, 100);
+        }, 500);
     }
 
     getFeatureImage(post): string {
@@ -115,7 +119,6 @@ export class WordpressStore {
     pageBySlug(slug: string): WPPost {
         return _.find(this.pages.values(), {slug: slug});
     }
-
 
     postBySlug(slug: string): WPPost {
         return _.find(this.posts.values(), {slug: slug});

@@ -17,7 +17,6 @@ export class PostPage extends React.Component<PostPageProps>{
         super(props);
     }
 
-
     componentDidMount(){
         this.props.app.wpStore.loadPost(this.props.slug)
             .then((post) => {
@@ -30,8 +29,9 @@ export class PostPage extends React.Component<PostPageProps>{
 
     render(){
         let post = this.props.app.wpStore.postBySlug(this.props.slug);
+
         return(
-            <CenterPageWidget>
+            <CenterPageWidget left={post && post.previous && post.previous.link} right={post && post.next && post.next.link} app={this.props.app}>
                 {post && <PostWidget full={true} post={post} app={this.props.app} />}
             </CenterPageWidget>
         );

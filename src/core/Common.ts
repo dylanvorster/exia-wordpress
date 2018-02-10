@@ -34,7 +34,15 @@ export interface WPPost extends WPEntity {
     tags: number[];
     title: {
         rendered: string;
-    }
+    };
+    previous: {
+        id: string;
+        link: string;
+    };
+    next:{
+        id: string;
+        link: string;
+    };
 }
 
 export interface WPCategory extends WPEntity {

@@ -25,7 +25,7 @@ export class CategoryPage extends React.Component<TagPageProps> {
 
     render() {
         return (
-            <CenterPageWidget name={"Category: " + this.props.category}>
+            <CenterPageWidget app={this.props.app} name={"Category: " + this.props.category}>
                 {
                     _.map(this.props.app.wpStore.postsByCategory(this.props.app.wpStore.categoryBySlug(this.props.category)), (post) => {
                         return (

@@ -104,4 +104,16 @@ add_action( 'rest_api_init', function () {
             'type'        => 'string'
         ),
     ) );
+
+    register_rest_field( 'post', 'metabox_video', array(
+            'get_callback' => function( $post_arr ) {
+                if($post_arr['format'] === 'video'){
+                    return rwmb_meta('exia_mb_video_url' , [], $post_arr['id'] );
+                }
+            },
+            'schema' => array(
+                'description' => __( 'Youtube URL.' ),
+                'type'        => 'string'
+            ),
+        ) );
 } );

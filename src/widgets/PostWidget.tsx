@@ -8,6 +8,7 @@ import {LinkWidget} from "./LinkWidget";
 import * as moment from "moment";
 import * as ReactDOM from "react-dom";
 import {GalleryWidget} from "./GalleryWidget";
+import * as url from "url";
 
 
 export interface PostWidgetProps {
@@ -71,6 +72,22 @@ export class PostWidget extends React.Component<PostWidgetProps> {
         this.forceUpdate();
     }
 
+    getYoutube() {
+        if (this.props.post['metabox_video']) {
+            let query = url.parse('https://www.youtube.com/watch?v=SmwItKJ5leY&t=5s', true);
+
+            return (
+                <div className="exia-post__video-container">
+                    <iframe
+                        className="exia-post__video"
+                        src={"https://www.youtube.com/embed/" + query.query.v + "?autoplay=0&origin=http://example.com"}
+                        frameBorder="no"
+                    />
+                </div>
+            );
+        }
+    }
+
     getSoundCloud() {
         if (this.props.post['metabox_soundcloud']) {
             return (
@@ -104,12 +121,9 @@ export class PostWidget extends React.Component<PostWidgetProps> {
 
         return (
             <div className="exia-post">
-                {
-                    this.portals
-                }
-                {
-                    this.getSoundCloud()
-                }
+                {this.portals}
+                {this.getSoundCloud()}
+                {this.getYoutube()}
                 {
                     this.props.full ? this.getFeatured() : (
                         <LinkWidget to={this.props.post.link}>

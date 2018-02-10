@@ -35,6 +35,7 @@ class BodyWidget extends React.Component<BodyWidgetProps, BodyWidgetState> {
                 return React.createElement(page, {
                     ...match.match.params,
                     location: match.location,
+                    history: match.history,
                     key: JSON.stringify(match.match.params),
                     app: this.props.app
                 })

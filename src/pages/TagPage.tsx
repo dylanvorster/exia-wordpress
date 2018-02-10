@@ -10,11 +10,18 @@ export interface TagPageProps {
     tag: string;
 }
 
+export interface TagPageState {
+    page: number;
+}
+
 @observer
-export class TagPage extends React.Component<TagPageProps> {
+export class TagPage extends React.Component<TagPageProps, TagPageState> {
 
     constructor(props) {
         super(props);
+        this.state = {
+            page: 1
+        };
     }
 
 
@@ -25,7 +32,11 @@ export class TagPage extends React.Component<TagPageProps> {
 
     render() {
         return (
-            <CenterPageWidget app={this.props.app} name={"Tag: " + this.props.tag}>
+            <CenterPageWidget showMore={() => {
+                this.setState({page: this.state.page + 1}, () => {
+                    this.props.app.wpStore.loadTagPosts(this.props.tag, this.state.page);
+                })
+            }} app={this.props.app} name={"Tag: " + this.props.tag}>
                 {
                     _.map(this.props.app.wpStore.postsByTag(this.props.app.wpStore.tagBySlug(this.props.tag)), (post) => {
                         return (

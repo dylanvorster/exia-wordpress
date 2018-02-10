@@ -21,6 +21,7 @@ export class WordpressStore {
 
     @observable
     loading: boolean;
+    loaders: number;
 
     constructor() {
         this.api = new WPAPI({endpoint: window.location.origin + '/wp-json'});
@@ -31,16 +32,20 @@ export class WordpressStore {
         this.currentPost = null;
         this.media = new ObservableMap();
         this.loading = false;
+        this.loaders = 0;
     }
 
     start() {
         this.loading = true;
+        this.loaders++;
         nprogress.start();
     }
 
     end() {
         setTimeout(() => {
-            if (this.loading) {
+            this.loaders--;
+            if (this.loaders <= 0) {
+                this.loaders = 0;
                 this.loading = false;
                 nprogress.done();
             }
@@ -179,7 +184,7 @@ export class WordpressStore {
         }
     }
 
-    loadCategoryPosts(catSlug: string) { // rainworld :P
+    loadCategoryPosts(catSlug: string, page: number = 1, limit = 10) { // rainworld :P
         let cat = this.categoryBySlug(catSlug);
         let promise = Promise.resolve(cat);
         if (!cat) {
@@ -191,14 +196,16 @@ export class WordpressStore {
                 .posts()
                 .order('desc')
                 .orderby('date').param('categories', cat.id)
+                .perPage(limit)
+                .page(page)
                 .then((posts) => {
                     this.mergePosts(posts);
                     this.end();
                 })
+                .catch(() => {
+                    this.end()
+                })
         })
-            .catch(() => {
-                this.end()
-            })
     }
 
     loadPage(pageSlug: string) {
@@ -217,7 +224,7 @@ export class WordpressStore {
             })
     }
 
-    loadTagPosts(tagSlug: string) {
+    loadTagPosts(tagSlug: string, page: number = 1, limit = 10) {
         let tag = this.tagBySlug(tagSlug);
         let promise = Promise.resolve(tag);
         if (!tag) {
@@ -229,14 +236,16 @@ export class WordpressStore {
                 .posts()
                 .order('desc')
                 .orderby('date').param('tags', tag.id)
+                .perPage(limit)
+                .page(page)
                 .then((posts) => {
                     this.end();
                     this.mergePosts(posts);
                 })
+                .catch(() => {
+                    this.end()
+                })
         })
-            .catch(() => {
-                this.end()
-            })
 
     }
 
@@ -263,8 +272,9 @@ export class WordpressStore {
                 }
                 return null;
             }))
-            .catch(() => {
-                this.end()
+            .catch((ex) => {
+                this.end();
+                throw ex;
             })
     }
 
@@ -280,8 +290,9 @@ export class WordpressStore {
                 this.end();
                 this.mergePosts(data);
             }))
-            .catch(() => {
-                this.end()
+            .catch((ex) => {
+                this.end();
+                throw ex;
             })
     }
 

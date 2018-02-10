@@ -24,7 +24,7 @@
     }
   }
 
-  &__soundcloud{
+  &__soundcloud {
     background: white;
   }
 
@@ -138,6 +138,20 @@
         max-width: calc(100% + 150px - 40px);
       }
     }
+  }
 
+  &__video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    background: black;
+  }
+  &__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }

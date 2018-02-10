@@ -27,15 +27,19 @@
 
   &__loading {
     background: rgba(black, 0.9);
-    padding: 40px;
     text-align: center;
-    flex-grow: 1;
+    box-sizing: border-box;
+    height: 300px;
+    margin-bottom: 20px;
   }
 
   &__nothing {
     background: rgba(black, 0.9);
     padding: 60px;
+    height: 300px;
     text-align: center;
+    box-sizing: border-box;
+    margin-bottom: 20px;
   }
 
   &__text {
@@ -58,12 +62,12 @@
     opacity: 0.2;
     cursor: pointer;
 
-    .fa{
+    .fa {
       transition: transform 0.2s;
       transform-origin: center center;
     }
 
-    &:hover{
+    &:hover {
       opacity: 1.0;
     }
 
@@ -72,15 +76,32 @@
     }
   }
 
+  &__show-more {
+    font-family: 'visitor';
+    font-size: 30px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: rgba(black, 0.8);
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    user-select: none;
+
+    &:hover {
+      background-color: darken(aqua,30%);
+      color: aqua;
+    }
+  }
+
   &__left {
     margin-left: - ($sizeLarge/2) + ($sidebar-width/2) - ($arrow-width/2);
 
-    @include laptop{
+    @include laptop {
       margin-left: - ($sizeLaptop/2) + ($sidebar-width/2) - ($arrow-width/2);
     }
 
-    &:hover{
-      .fa{
+    &:hover {
+      .fa {
         transform: translateX(-10px);
       }
     }
@@ -89,12 +110,12 @@
   &__right {
     margin-left: ($sizeLarge/2) + ($sidebar-width/2) + ($arrow-width/2);
 
-    @include laptop{
+    @include laptop {
       margin-left: ($sizeLaptop/2) + ($sidebar-width/2) + ($arrow-width/2);
     }
 
-    &:hover{
-      .fa{
+    &:hover {
+      .fa {
         transform: translateX(+10px);
       }
     }
@@ -111,7 +132,7 @@
     flex-direction: column;
     min-height: 100vh;
 
-    @include laptop{
+    @include laptop {
       width: $sizeLaptop;
     }
 

@@ -74,7 +74,7 @@ export class PostWidget extends React.Component<PostWidgetProps> {
 
     getYoutube() {
         if (this.props.post['metabox_video']) {
-            let query = url.parse('https://www.youtube.com/watch?v=SmwItKJ5leY&t=5s', true);
+            let query = url.parse(this.props.post['metabox_video'], true);
 
             return (
                 <div className="exia-post__video-container">

@@ -68,7 +68,7 @@ add_action('print_media_templates', function(){
 
 add_filter('post_gallery','customFormatGallery',10,2);
 function customFormatGallery($string,$attr){
-    $output = '<div class="exia-gallery-placeholder" data-columns="'.$attr['columns'].'" data-light="'.($attr['light_mode'] === true?'true':'false').'">';
+    $output = '<div class="exia-gallery-placeholder" data-columns="'.$attr['columns'].'" data-light="'.($attr['light_mode']).'">';
     $posts = get_posts(array('include' => $attr['ids'],'post_type' => 'attachment'));
     foreach($posts as $imagePost){
         $output .= '<div

@@ -39,8 +39,7 @@ add_filter('rwmb_meta_boxes', function ($meta_boxes) {
             array(
                 'name' => esc_html__('Video URL', 'exia'),
                 'id' => "{$prefix}video_url",
-                'desc' => esc_html__('Insert a link (URL) on a video from the popular video hosting (YouTube, Vimeo, and etc.)', 'exia'),
-                'type' => 'oembed',
+                'desc' => esc_html__('Insert a link (URL) on a video from the popular video hosting (YouTube, Vimeo, and etc.)', 'exia')
             ),
 
         )
